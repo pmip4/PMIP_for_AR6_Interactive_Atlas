@@ -223,7 +223,7 @@ begin
     tracking_id(gcm_i)=fila@tracking_id
     X=fila->lat
     resX(gcm_i)=dimsizes(X)
-    Y=fila->lat
+    Y=fila->lon
     resY(gcm_i)=dimsizes(Y)
     delete([/X,Y/])
     filb=addfile(input_file_paths(gcm_i,1),"r")
