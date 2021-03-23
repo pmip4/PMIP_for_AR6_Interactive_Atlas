@@ -17,7 +17,7 @@ import matplotlib
 
 
 # Loads the model data for figure 3.11 and then stores the data corresponding to models and CMIPs 
-DATA = pd.read_csv('map_midHolocene_models.csv',header=110)
+DATA = pd.read_csv('map_midHolocene_models.csv',header=205)
 map_PMIP4_CMIP6 = {'AWI-ESM-1-1-LR':np.array(DATA['2'][0:len(DATA['2'])-1]).astype(float),
                       'CESM2':np.array(DATA['3'][0:len(DATA['3'])-1]).astype(float),
                       'EC-Earth3-LR':np.array(DATA['4'][0:len(DATA['4'])-1]).astype(float),
@@ -60,7 +60,7 @@ data_MED = []
 data_SAH = []
 data_WAF = []
 # Load reconstruction data
-data_reconstruction = pd.read_csv('map_midHolocene_reconstructions.csv',header=20)
+data_reconstruction = pd.read_csv('map_midHolocene_reconstructions.csv',header=21)
 data_region_names = data_reconstruction['1']
 map_reconstruction = data_reconstruction['2']
 # For each data point, identify the name of the region and then add the data to the right list
