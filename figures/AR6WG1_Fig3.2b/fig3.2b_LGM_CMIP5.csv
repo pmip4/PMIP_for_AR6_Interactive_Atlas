@@ -1,0 +1,22 @@
+Conventions,G,BADC-CSV,1
+title,G,Annual mean global temperature change over land and ocean at the Last Glacial Maximum (LGM)  as simulated by CMIP5 models,
+creator,G,Anni Zhao (anni.zhao.16@ucl.ac.uk),
+creator,G,Chris Brierley (c.brierley@ucl.ac.uk),
+last_revised_date,G,2021/3/14,
+acitivity,G,IPCC AR6,
+feature_tpye,G,Global Mean Data Points,
+comments,G,Data is for the blue  x  in Figure 3.2b in the IPCC Working Group 1 Contribution to the Six Assessment Report: Chapter 3,
+comments,G,Annual mean global temperature change over sea and over land in the PMIP3-CMIP5 lgm experiment as compard to the  piControl ,
+comments,G,Applied LGM land and ocean mask ,
+rights,G,,
+long_name,1,ann_tas_sea_LGM_CMIP5_individual_models,degrees C
+comments,1,Annual mean global temeprature change over sea at the LGM as simulated by CMIP5 models,
+type,1,float,
+long_name,2,ann_tas_land_LGM_CMIP5_individual_models,degrees C
+comments,2,Annual mean global temeprature change over land at the LGM as simulated by CMIP5 models,
+type,2,float,
+data,,,
+1,2,,
+-5.133087,-10.155365,,
+-3.332001,-7.676819,,
+end_data,,,

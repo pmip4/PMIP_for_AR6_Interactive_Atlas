@@ -1,0 +1,21 @@
+Conventions,G,BADC-CSV,1
+title,G,Annual mean global temperature change over land and ocean from instrumental observation,
+creator,G,Anni Zhao (anni.zhao.16@ucl.ac.uk),
+creator,G,Chris Brierley (c.brierley@ucl.ac.uk),
+last_revised_date,G,2021/3/14,
+acitivity,G,IPCC AR6,
+feature_tpye,G,Global Mean Data Points,
+comments,G,Data is for the black unfilled square in Figure 3.2b in the IPCC Working Group 1 Contribution to the Six Assessment Report: Chapter 3,
+comments,G,Annual mean global temperature change over sea and over land From instrumental observation,
+comments,G,Applied modern land and ocean mask ,
+rights,G,,
+long_name,1,ann_tas_sea_instrumental,degrees C
+comments,1,Annual mean global temeprature change over sea from instrumental observation,
+type,1,float,
+long_name,2,ann_tas_land_instrumental,degrees C
+comments,2,Annual mean global temeprature change over land from instrumental obsevation,
+type,2,float,
+data,,,
+1,2,,
+0.9,1.4,,
+end_data,,,

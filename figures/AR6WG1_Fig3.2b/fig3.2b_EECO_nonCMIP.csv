@@ -1,0 +1,23 @@
+Conventions,G,BADC-CSV,1
+title,G,Annual mean global temperature change over land and ocean at the Early Eocene Climatic Optimum (EECO) as simulated by nonCMIP models,
+creator,G,Anni Zhao (anni.zhao.16@ucl.ac.uk),
+creator,G,Chris Brierley (c.brierley@ucl.ac.uk),
+last_revised_date,G,2021/3/14,
+acitivity,G,IPCC AR6,
+feature_tpye,G,Global Mean Data Points,
+comments,G,Data is for the dark red pluses in Figure 3.2b in the IPCC Working Group 1 Contribution to the Six Assessment Report: Chapter 3,
+comments,G,Annual mean global temperature change over sea and over land in the DeepMIP EECO experiment as compard to the piControl ,
+comments,G,nonCMIP models have run the PMIP4 protocol but not included in the CMIP6,
+comments,G,Applied EECO land and ocean mask ,
+rights,G,,
+long_name,1,ann_tas_sea_EECO_nonCMIP_individual_models,degrees C
+comments,1,Annual mean global temeprature change over sea at the EECO as simulated by nonCMIP models,
+type,1,float,
+long_name,2,ann_tas_land_EECO_nonCMIP_individual_models,degrees C
+comments,2,Annual mean global temeprature change over land at the EECO as simulated by nonCMIP models,
+type,2,float,
+data,,,
+1,2,,
+13.5388,17.3096,,
+12.1017,14.9963,,
+end_data,,,

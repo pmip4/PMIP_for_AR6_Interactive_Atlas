@@ -1,0 +1,21 @@
+Conventions,G,BADC-CSV,1
+title,G,Ensemble mean of annual mean global temperature change over land and ocean at the Last Glacial Maximum (LGM)  in the CMIP6,
+creator,G,Anni Zhao (anni.zhao.16@ucl.ac.uk),
+creator,G,Chris Brierley (c.brierley@ucl.ac.uk),
+last_revised_date,G,2021/3/14,
+acitivity,G,IPCC AR6,
+feature_tpye,G,Global Mean Data Points,
+comments,G,Data is for the red unfilled square in Figure 3.2b in the IPCC Working Group 1 Contribution to the Six Assessment Report: Chapter 3,
+comments,G,Ensemble mean of annual mean global temperature change over sea and over land in the PMIP4-CMIP6 lgm experiment as compard to the piControl ,
+comments,G,Applied LGM land and ocean mask ,
+rights,G,,
+long_name,1,ann_tas_sea_LGM_CMIP6_ensemble_mean,degrees C
+comments,1,Ensemble mean of annual mean global temeprature change over sea at the LGM in the CMIP6,
+type,1,float,
+long_name,2,ann_tas_land_LGM_CMIP6_ensemble_mean,degrees C
+comments,2,Ensemble mean of annual mean global temeprature change over land at the LGM in the CMIP6,
+type,2,float,
+data,,,
+1,2,,
+-3.9511904,-7.565637,,
+end_data,,,

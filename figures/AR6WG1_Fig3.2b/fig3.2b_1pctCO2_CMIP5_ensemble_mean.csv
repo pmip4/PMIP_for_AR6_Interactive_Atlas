@@ -1,0 +1,21 @@
+Conventions,G,BADC-CSV,1
+title,G,Ensemble mean of annual mean global temperature change over land and ocean with CO2 concentration prescribed to increase at 1% per year in the CMIP5,
+creator,G,Anni Zhao (anni.zhao.16@ucl.ac.uk),
+creator,G,Chris Brierley (c.brierley@ucl.ac.uk),
+last_revised_date,G,2021/3/14,
+acitivity,G,IPCC AR6,
+feature_tpye,G,Global Mean Data Points,
+comments,G,Data is for the limegreen unfilled X in Figure 3.2b in the IPCC Working Group 1 Contribution to the Six Assessment Report: Chapter 3,
+comments,G,Ensemble mean of annual mean global temperature change over sea and over land in the CMIP5 1pctCO2 experiment as compard to the piControl ,
+comments,G,Applied modern land and ocean mask ,
+rights,G,,
+long_name,1,ann_tas_sea_1pctCO2_CMIP5_ensemble_mean,degrees C
+comments,1,Ensemble mean of annual mean global temeprature change over sea with CO2 concentration prescribed to increase at 1% per year in the CMIP5,
+type,1,float,
+long_name,2,ann_tas_land_1pctCO2_CMIP5_ensemble_mean,degrees C
+comments,2,Ensemble mean of annual mean global temeprature change over land with CO2 concentration prescribed to increase at 1% per year in the CMIP5,
+type,2,float,
+data,,,
+1,2,,
+3.439230769,5.179230769,,
+end_data,,,
