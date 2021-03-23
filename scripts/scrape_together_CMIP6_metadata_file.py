@@ -2,8 +2,10 @@ from netCDF4 import Dataset
 import urllib
 import glob
 import json
+import pandas as pd
 
 fnames=glob.glob("../netcdfs/annClim/tas_annClim*nc")
+print(fnames)
 numncfiles=len(fnames)
 
 for i in range(0,numncfiles):
@@ -11,8 +13,8 @@ for i in range(0,numncfiles):
   
   #Step 1 load the netcdf file and get the values of several global attributes
   r = Dataset(file, mode='r')
-  pid = getattr(r,'tracking_id')
   mip_era = getattr(r,'mip_era')
+  pid = getattr(r,'tracking_id')
   activity_id = getattr(r,'activity_id')
   institution_id = getattr(r,'institution_id')
   source_id = getattr(r,'source_id')
@@ -31,6 +33,7 @@ for i in range(0,numncfiles):
     pid = pid[4:]
   
   #Go to the webpage for the PID
+  
   pidurl = 'https://handle-esgf.dkrz.de/lp/handles/'+pid
   
   readurl = urllib.request.urlopen(pidurl)
@@ -49,5 +52,19 @@ for i in range(0,numncfiles):
     data_dataset = json.loads(readurl_dataset.read())
     version_number = data_dataset["VERSION_NUMBER"]
 
-  csv_string=data_ref_syntax
-  print(
+  if i == 0:
+    data = {'DATA_REF_SYNTAX': [data_ref_syntax],
+            'SUB_EX_ID': ['none'],
+            'ENS_MEMBER': [variant_label],
+            'TABLE_ID': [table_id],
+            'VAR_NAME': [variable_id],
+            'GRID_LABEL':[grid_label],
+            'VERSION_NO':[version_number],
+            'HANDLE':['hdl:'+pid],
+            'SUBPANEL':['b']}
+    df=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
+  else:
+    df2=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
+    df.append(df2,ignore_index=True)
+  
+#df.to_csv('fig3.2b_md_cmip6.csv')
