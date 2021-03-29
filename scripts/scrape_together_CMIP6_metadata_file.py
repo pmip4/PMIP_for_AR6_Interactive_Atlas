@@ -4,13 +4,12 @@ import glob
 import json
 import pandas as pd
 
-fnames=glob.glob("../netcdfs/annClim/tas_annClim*nc")
-print(fnames)
+fnames=glob.glob("../netcdfs/annClim/PMIP4/*_annClim*nc")
 numncfiles=len(fnames)
 
 for i in range(0,numncfiles):
   file = fnames[i]
-  
+  #print(file)
   #Step 1 load the netcdf file and get the values of several global attributes
   r = Dataset(file, mode='r')
   mip_era = getattr(r,'mip_era')
@@ -42,15 +41,21 @@ for i in range(0,numncfiles):
   try:
     version_number = data["VERSION_NUMBER"]
   except KeyError:
-    datasetpid = data["URL_ORIGINAL_DATA"][0]["dataset"]
-    if datasetpid[0:4] == 'hdl:':
-      datasetpid = datasetpid[4:]
+    try:
+      datasetpid = data["URL_ORIGINAL_DATA"][0]["dataset"]
+      if datasetpid[0:4] == 'hdl:':
+        datasetpid = datasetpid[4:]
 
-    datasetpidurl = 'https://handle-esgf.dkrz.de/lp/handles/'+datasetpid
+        datasetpidurl = 'https://handle-esgf.dkrz.de/lp/handles/'+datasetpid
       
-    readurl_dataset = urllib.request.urlopen(datasetpidurl)
-    data_dataset = json.loads(readurl_dataset.read())
-    version_number = data_dataset["VERSION_NUMBER"]
+        readurl_dataset = urllib.request.urlopen(datasetpidurl)
+        data_dataset = json.loads(readurl_dataset.read())
+        try:
+          version_number = data_dataset["VERSION_NUMBER"]
+        except KeyError:
+          version_number = "UNKNOWN"
+    except KeyError:
+          version_number = "UNKNOWN"
 
   if i == 0:
     data = {'DATA_REF_SYNTAX': [data_ref_syntax],
@@ -62,9 +67,21 @@ for i in range(0,numncfiles):
             'VERSION_NO':[version_number],
             'HANDLE':['hdl:'+pid],
             'SUBPANEL':['b']}
-    df=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
+    #df=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
+    print('DATA_REF_SYNTAX,SUB_EX_ID,ENS_MEMBER,TABLE_ID,VAR_NAME,GRID_LABEL,VERSION_NO,HANDLE,SUBPANEL')
+    print(data_ref_syntax+',none,'+variant_label+','+table_id+','+variable_id+','+grid_label+','+version_number+','+'hdl:'+pid+',')
   else:
-    df2=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
-    df.append(df2,ignore_index=True)
+    data = {'DATA_REF_SYNTAX': [data_ref_syntax],
+            'SUB_EX_ID': ['none'],
+            'ENS_MEMBER': [variant_label],
+            'TABLE_ID': [table_id],
+            'VAR_NAME': [variable_id],
+            'GRID_LABEL':[grid_label],
+            'VERSION_NO':[version_number],
+            'HANDLE':['hdl:'+pid],
+            'SUBPANEL':['b']}
+    #df2=pd.DataFrame(data,columns=['DATA_REF_SYNTAX','SUB_EX_ID','ENS_MEMBER','TABLE_ID','VAR_NAME','GRID_LABEL','VERSION_NO','HANDLE','SUBPANEL'])
+    #df.append(df2,ignore_index=True)
+    print(data_ref_syntax+',none,'+variant_label+','+table_id+','+variable_id+','+grid_label+','+version_number+','+'hdl:'+pid+',')
   
-#df.to_csv('fig3.2b_md_cmip6.csv')
+#df.to_csv('fig3.11_md_cmip6.csv')

@@ -301,7 +301,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       percentage_file_name="../netcdfs/ensemble_differences/"+var_names(var_i)+"_annClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+"-piControl_percentage.nc"
       if OVERWRITE_EXISTING.or.(.not.fileexists(ensemble_file_name)) then
         ; identify relevant pairs of annual mean files
-        file_paths=find_pair_files_wVar(annClim_DIR,expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
+        file_paths=find_pair_files_wVar(annClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
         file_paths@_FillValue="missing"
         if .not.all(ismissing(file_paths)) then
           write_ensemble_file(ensemble_file_name,file_paths,var_names(var_i),False,PMIP4(PMIPgen),False)
@@ -311,7 +311,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       if var_names(var_i).eq."pr"
         if OVERWRITE_EXISTING.or.(.not.fileexists(percentage_file_name)) then
           ; Add in the percentage differences annual mean file
-          file_paths=find_pair_files_wVar(annClim_DIR,expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
+          file_paths=find_pair_files_wVar(annClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
           file_paths@_FillValue="missing"
           if .not.all(ismissing(file_paths)) then
             write_ensemble_file(percentage_file_name,file_paths,var_names(var_i),False,PMIP4(PMIPgen),True)
@@ -325,7 +325,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       percentage_file_name="../netcdfs/ensemble_differences/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+"-piControl_percentage.nc"
       if OVERWRITE_EXISTING.or.(.not.fileexists(ensemble_file_name)) then
         ; identify relevant pairs of monthly climatology files
-        file_paths=find_pair_files_wVar(monClim_DIR,expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
+        file_paths=find_pair_files_wVar(monClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
         file_paths@_FillValue="missing"
         if .not.all(ismissing(file_paths)) then
           write_ensemble_file(ensemble_file_name,file_paths,var_names(var_i),True,PMIP4(PMIPgen),False)
@@ -335,7 +335,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       if var_names(var_i).eq."pr"
         if OVERWRITE_EXISTING.or.(.not.fileexists(percentage_file_name)) then
           ; Add in the percentage differences annual mean file
-          file_paths=find_pair_files_wVar(monClim_DIR,expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
+          file_paths=find_pair_files_wVar(monClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
           file_paths@_FillValue="missing"
           if .not.all(ismissing(file_paths)) then
             write_ensemble_file(percentage_file_name,file_paths,var_names(var_i),True,PMIP4(PMIPgen),True)
