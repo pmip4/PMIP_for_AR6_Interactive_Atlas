@@ -210,13 +210,13 @@ begin
 
   do gcm_i=0,n_gcms-1
     str_frags=str_split(input_file_paths(gcm_i,0),"/")
-    f1=str_frags(3)
-    f1_c=stringtocharacter(str_frags(3))
+    f1=str_frags(4)
+    f1_c=stringtocharacter(str_frags(4))
     years_averaged(gcm_i)=tostring(f1_c(str_index_of_substr(f1,".nc", -1)-13:str_index_of_substr(f1,".nc", -1)-1))
     delete([/str_frags,f1_c/])
     str_frags=str_split(input_file_paths(gcm_i,1),"/")
-    f1=str_frags(3)
-    f1_c=stringtocharacter(str_frags(3))
+    f1=str_frags(4)
+    f1_c=stringtocharacter(str_frags(4))
     piControl_years_averaged(gcm_i)=tostring(f1_c(str_index_of_substr(f1,".nc", -1)-13:str_index_of_substr(f1,".nc", -1)-1))
     delete([/str_frags,f1_c/])
     fila=addfile(input_file_paths(gcm_i,0),"r")
@@ -283,11 +283,10 @@ end;write_ensemble_file
 DATA_DIR="/data/CMIP/curated_ESGF_replica"
 monClim_DIR="../netcdfs/monClim"
 annClim_DIR="../netcdfs/annClim"
-OVERWRITE_EXISTING=True
+OVERWRITE_EXISTING=False
 
 ; Start by creating climatologies on the native grids...
-;expt_names=(/"lgm","lig127k","midHolocene","midPliocene-eoi400"/)
-expt_names=(/"lig127k","midHolocene","midPliocene-eoi400"/)
+expt_names=(/"lgm","lig127k","midHolocene","midPliocene-eoi400"/)
 var_names=(/"tas","pr"/)
 PMIP4=(/True,False/)
 PMIP_names=(/"PMIP4","PMIP3"/)
@@ -304,6 +303,9 @@ do expt_i = 0,dimsizes(expt_names)-1
         file_paths=find_pair_files_wVar(annClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
         file_paths@_FillValue="missing"
         if .not.all(ismissing(file_paths)) then
+          if fileexists(ensemble_file_name) then
+            system("rm "+ensemble_file_name)
+          end if
           write_ensemble_file(ensemble_file_name,file_paths,var_names(var_i),False,PMIP4(PMIPgen),False)
         end if
         delete([/file_paths/])
@@ -314,6 +316,9 @@ do expt_i = 0,dimsizes(expt_names)-1
           file_paths=find_pair_files_wVar(annClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
           file_paths@_FillValue="missing"
           if .not.all(ismissing(file_paths)) then
+            if OVERWRITE_EXISTING.and.fileexists(percentage_file_name) then
+              system("rm "+percentage_file_name)
+            end if
             write_ensemble_file(percentage_file_name,file_paths,var_names(var_i),False,PMIP4(PMIPgen),True)
           end if
           delete([/file_paths/])
@@ -328,6 +333,9 @@ do expt_i = 0,dimsizes(expt_names)-1
         file_paths=find_pair_files_wVar(monClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
         file_paths@_FillValue="missing"
         if .not.all(ismissing(file_paths)) then
+          if OVERWRITE_EXISTING.and.fileexists(ensemble_file_name) then
+            system("rm "+ensemble_file_name)
+          end if
           write_ensemble_file(ensemble_file_name,file_paths,var_names(var_i),True,PMIP4(PMIPgen),False)
         end if
         delete([/file_paths/])
@@ -338,6 +346,9 @@ do expt_i = 0,dimsizes(expt_names)-1
           file_paths=find_pair_files_wVar(monClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
           file_paths@_FillValue="missing"
           if .not.all(ismissing(file_paths)) then
+            if OVERWRITE_EXISTING.and.fileexists(percentage_file_name) then
+              system("rm "+percentage_file_name)
+            end if
             write_ensemble_file(percentage_file_name,file_paths,var_names(var_i),True,PMIP4(PMIPgen),True)
           end if
           delete([/file_paths/])
