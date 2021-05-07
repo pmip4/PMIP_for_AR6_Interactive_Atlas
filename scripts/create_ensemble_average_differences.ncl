@@ -99,23 +99,16 @@ begin
   end if
   
   
-  a = addfile("$NCARG_ROOT/lib/ncarg/data/cdf/landsea.nc","r")
-  lsdata = a->LSMASK
+  ; REGRID
+  a = addfile("../netcdfs/land_sea_mask_1degree.nc4","r")
+  ;This file is taken from the ATLAS repository under referenceGrids
+  lsdata = a->sftlf
   lat=lsdata&lat
   lat@axis = "Y"
-  lat@long_name = "latitude"
-  lat@standard_name = "latitude"
   lon=lsdata&lon
-  lon@axis = "X" 
-  lon@long_name = "longitude"
-  lon@standard_name = "longitude"
-  var_out=new((/dimsizes(lat),dimsizes(lon)/),float,getFillValue(var_in))
-  var_out!0="lat"
-  var_out&lat=lat
-  var_out!1="lon"
-  var_out&lon=lon
-  copy_VarAtts(var_in,var_out)
-  var_out=linint2(var_in&lon,var_in&lat,var_in,True,lon,lat,0)
+  lon@axis = "X"
+  var_in=lonFlip(var_in)
+  var_out=linint2_Wrap(var_in&lon,var_in&lat,var_in,True,lon,lat,0)
   var_out@regrid="regridded from native grid using bilinear interpolation"
   
   return(var_out)
@@ -363,7 +356,7 @@ begin
   end if
 
   do gcm_i=0,n_gcms-1
-    str_frags=str_split(input_file_paths(gcm_i,0),"/")
+    str_frags=str_split(input_file_paths(gcm_i),"/")
     f1=str_frags(4)
     f1_c=stringtocharacter(str_frags(4))
     years_averaged(gcm_i)=tostring(f1_c(str_index_of_substr(f1,".nc", -1)-13:str_index_of_substr(f1,".nc", -1)-1))
@@ -381,8 +374,8 @@ begin
     else
       model_name(gcm_i)=fil@model_id
     end if
-    if gcm_i.eq.0
-      this_field=read_latlon_var(fil,variable_name)
+    if gcm_i.eq.0 then
+      this_field=read_latlon_var(input_file_paths(gcm_i),variable_name)
       ensemble_combined&lat=this_field&lat
       ensemble_combined&lon=this_field&lon
       if MONTHLY then 
@@ -393,9 +386,9 @@ begin
       delete(this_field)
     else 
       if MONTHLY then 
-        ensemble_combined(gcm_i,:,:,:)=(/read_latlon_var(fil,variable_name)/)
+        ensemble_combined(gcm_i,:,:,:)=(/read_latlon_var(input_file_paths(gcm_i),variable_name)/)
       else
-        ensemble_combined(gcm_i,:,:)=(/read_latlon_var(fil,variable_name)/)
+        ensemble_combined(gcm_i,:,:)=(/read_latlon_var(input_file_paths(gcm_i),variable_name)/)
       end if
     end if
     delete([/fil/])
@@ -441,7 +434,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       print("Creating "+ensemble_file_name)
       percentage_file_name="../netcdfs/ensemble_differences/"+var_names(var_i)+"_annClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+"-piControl_percentage.nc"
       combined_exp_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_annClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+".nc"
-      combined_pi_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_annClim_"+PMIP_names(PMIPgen)+"_"+piControl+"_for_"+expt_names(expt_i)+".nc"
+      combined_pi_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_annClim_"+PMIP_names(PMIPgen)+"_piControl_for_"+expt_names(expt_i)+".nc"
       ; identify relevant pairs of annual mean files
       file_paths=find_pair_files_wVar(annClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
       file_paths@_FillValue="missing"
@@ -462,7 +455,7 @@ do expt_i = 0,dimsizes(expt_names)-1
           if fileexists(combined_pi_file_name) then
             system("rm "+combined_pi_file_name)
           end if
-          write_ensemble_combined_file(combined_pi_file_name,file_paths(:,0),var_names(var_i),False,PMIP4(PMIPgen))
+          write_ensemble_combined_file(combined_pi_file_name,file_paths(:,1),var_names(var_i),False,PMIP4(PMIPgen))
         end if; create annClim_piControl
         if var_names(var_i).eq."pr" then
           if OVERWRITE_EXISTING.or.(.not.fileexists(percentage_file_name)) then
@@ -477,7 +470,7 @@ do expt_i = 0,dimsizes(expt_names)-1
       ensemble_file_name="../netcdfs/ensemble_differences/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+"-piControl.nc"
       percentage_file_name="../netcdfs/ensemble_differences/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+"-piControl_percentage.nc"
       combined_exp_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_"+expt_names(expt_i)+".nc"
-      combined_pi_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_"+piControl+"_for_"+expt_names(expt_i)+".nc"
+      combined_pi_file_name="../netcdfs/ensemble_combined/"+var_names(var_i)+"_monClim_"+PMIP_names(PMIPgen)+"_piControl_for_"+expt_names(expt_i)+".nc"
       ; identify relevant pairs of monthly climatology files
       file_paths=find_pair_files_wVar(monClim_DIR+"/"+PMIP_names(PMIPgen),expt_names(expt_i),"piControl",var_names(var_i),PMIP4(PMIPgen))
       file_paths@_FillValue="missing"
@@ -498,7 +491,7 @@ do expt_i = 0,dimsizes(expt_names)-1
           if fileexists(combined_pi_file_name) then
             system("rm "+combined_pi_file_name)
           end if
-          write_ensemble_combined_file(combined_pi_file_name,file_paths(:,0),var_names(var_i),True,PMIP4(PMIPgen))
+          write_ensemble_combined_file(combined_pi_file_name,file_paths(:,1),var_names(var_i),True,PMIP4(PMIPgen))
         end if; create monClim_piControl
         if var_names(var_i).eq."pr" then
           if OVERWRITE_EXISTING.or.(.not.fileexists(percentage_file_name)) then
