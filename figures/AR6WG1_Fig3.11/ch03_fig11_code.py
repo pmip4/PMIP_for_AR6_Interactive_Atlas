@@ -2,12 +2,13 @@
 
 # Description
 
-# Generates Figure 3.2 panel b in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 3
+# Generates Figure 3.11 in the IPCC Working Group I Contribution to the Sixth Assessment Report: Chapter 3
 
 # Creator: Chris Brierley (c.brierley@ucl.ac.uk)
 # Creator: Anni Zhao (anni.zhao.16@ucl.ac.uk)
 # Creation Date: 1 Mar 2021
 
+# Note - this script creates a plot with a key that is plastered down the centre of the image. This was corrected manually using Inkscape.  
 
 # Import packages
 import matplotlib.pyplot as plt
@@ -184,5 +185,3 @@ plt.xticks(p2,region_name,fontsize=9)
 plt.ylabel(' (mm yr$^{-1})$',fontsize=9) 
 plt.yticks(fontsize=9)
 plt.show()
-
-
