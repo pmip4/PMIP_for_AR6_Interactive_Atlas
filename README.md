@@ -9,7 +9,7 @@ There are four directories in the repositories that each contain different kind 
 _Please also refer to [Zhao et al (2020)](https://doi.org/10.5194/gmd-15-2475-2022), which describes the process that has been followed to collate the data provided in this repository_
 
 ## Figures
-There are 2 subdirectories containing the code and data used to create two panels for Chapter 3. They each also have their own repositories under the IPCC WGI organisation. You can access those repositories by clicking on the images below. Please do be aware that some of the titling and legend elements in Fig 3.11 were manually edited in Inkscape to improve to provide better visuals. 
+There are 2 subdirectories containing the code and data used to create two panels for Chapter 3. They each also have their own repositories under the IPCC WGI organisation. You can access those repositories at [Chapter-3_Fig02](https://github.com/IPCC-WG1/Chapter-3_Fig02b) (below left image) and [Chapter-3_Fig11](https://github.com/IPCC-WG1/Chapter-3_Fig11) (below right). Please be aware that some of the titling and legend elements in [Fig 3.11](https://github.com/IPCC-WG1/Chapter-3_Fig11) were manually edited in Inkscape to improve to provide better visuals. 
 
 [<img src="https://github.com/pmip4/PMIP_for_AR6_Interactive_Atlas/assets/22472193/3af919c0-f320-463a-85d2-afa8e36f46c5" width="300"/>](https://github.com/IPCC-WG1/Chapter-3_Fig02b) [<img src="https://github.com/pmip4/PMIP_for_AR6_Interactive_Atlas/assets/22472193/4d9ff1c5-9b91-49e4-8826-373b62a0a152" width="500"/>](https://github.com/IPCC-WG1/Chapter-3_Fig11)
 
