@@ -1,4 +1,7 @@
+
 # Palaeoclimate Modelling Intercomparison Outputs for IPCC AR6
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5931114.svg)](https://doi.org/10.5281/zenodo.5931114)
+
 ### This repository holds (some of the) results from the [Paleoclimate Modelling Intercomparison Project](https://pmip.lsce.ipsl.fr/) that were included in the the Sixth Assesment Report from the Intergovernmental Panel on Climate Change (IPCC AR6). 
 There are four directories in the repositories that each contain different kind of things and are outlined below.
 
@@ -6,7 +9,7 @@ There are four directories in the repositories that each contain different kind 
 * Chris Brierley: University College London ([c.brierley@ucl.ac.uk](mailto:c.brierley@ucl.ac.uk))
 * Anni Zhao: University College London
 
-_Please also refer to [Zhao et al (2020)](https://doi.org/10.5194/gmd-15-2475-2022), which describes the process that has been followed to collate the data provided in this repository_
+_Please also refer to [Zhao et al (2022)](https://doi.org/10.5194/gmd-15-2475-2022), which describes the process that has been followed to collate the data provided in this repository_
 
 ## Figures
 There are 2 subdirectories containing the code and data used to create two panels for Chapter 3. They each also have their own repositories under the IPCC WGI organisation. You can access those repositories at [Chapter-3_Fig02](https://github.com/IPCC-WG1/Chapter-3_Fig02b) (below left image) and [Chapter-3_Fig11](https://github.com/IPCC-WG1/Chapter-3_Fig11) (below right). Please be aware that some of the titling and legend elements in [Fig 3.11](https://github.com/IPCC-WG1/Chapter-3_Fig11) were manually edited in Inkscape to improve to provide better visuals. 
@@ -28,4 +31,4 @@ Calendar adjustment has been applied to the monthly data to correct for the diff
 - `ensemble_differences` sub-directory contains just the ensemble-averaged anomalies for each experiment. All the anomalies have been computed on a model's native grid first, before being regridded to a common 1° by 1° grid. This distinction can be minor for temperature changes, but may be important for rainfall percentage changes.
 
 ## Scripts
-This directory contains the scripts that have been written to create the netcdfs described above. They are provided for completeness sake, and may be of little use as they refer to file locations on an underlying curated ESGF replica as described by [Zhao et al (2020)](https://doi.org/10.5194/gmd-15-2475-2022).
+This directory contains the scripts that have been written to create the netcdfs described above. They are provided for completeness sake, and may be of little use as they refer to file locations on an underlying curated ESGF replica as described by [Zhao et al (2022)](https://doi.org/10.5194/gmd-15-2475-2022).
